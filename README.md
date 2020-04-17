@@ -5,3 +5,4 @@ All other .py files server as modules
 
 PyPi: tksheet
       Pillow
+      pygame
