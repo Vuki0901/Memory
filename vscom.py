@@ -16,7 +16,7 @@ imena = [
     'Štef',
     'Dragec',
     'Mirko'
-    
+
 ]
 
 kor1=''
@@ -47,6 +47,8 @@ send.bind('<ButtonRelease>', get_kor)
 
 root.mainloop()
 
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (100,35)
+
 pygame.init()
 screen = pygame.display.set_mode((900,780))
 pygame.display.set_caption('Igra protiv računala')
@@ -70,7 +72,7 @@ karta_ps_10 = pygame.image.load(cwd+'\slike\kart_10.jpg'); karteList.append(kart
 #zadnja strana karata
 karta_zs = pygame.image.load(cwd+'\slike\zadnja_strana.png')
 
-
+background = pygame.image.load(cwd+'\\slike\\template.png')
 
 #kao na sahovskoj ploci
 positions = ['a1', 'a2', 'a3', 'a4', 'a5',
@@ -79,7 +81,7 @@ positions = ['a1', 'a2', 'a3', 'a4', 'a5',
              'd1', 'd2', 'd3', 'd4', 'd5']
 
 #sve karte na ekranu (parovi)
-karteAll = karteList + karteList  
+karteAll = karteList + karteList
 
 #zakomentirati ovu naredbu u svrhu testiranja
 random.shuffle(karteAll)
@@ -89,7 +91,7 @@ random.shuffle(karteAll)
 base = {positions[i] : [karteAll[i], False, (0,0)] for i in range(20)}
 
 
-#kada računalo otvori karticu ta se sa svojom pozicijom sprema u ovu list 
+#kada računalo otvori karticu ta se sa svojom pozicijom sprema u ovu list
 poznate_karte = []
 
 Otv_Karte = []  #otvorene karte
@@ -105,11 +107,11 @@ def drawOne(n, x, y):
         screen.blit(base[positions[n]][0], (x, y))
     else:
         screen.blit(karta_zs, (x, y))
-    
+
     base[positions[n]][2] = (x,y)   #Postavljanje koordinata topleft coska
 
 
-#provjera kartice jel otvorena il nije; vraća vrijednost True/False 
+#provjera kartice jel otvorena il nije; vraća vrijednost True/False
 def isPressed(n, mouse_x, mouse_y):
     global base
     x = base[positions[n]][2][0]
@@ -130,7 +132,7 @@ def isPair(elapsed):
     global score_player
     global lista_vremena
     global player_turn
-    
+
     n = 0
     for red in range(4):
         y = 100 + red*150
@@ -162,9 +164,9 @@ def isPair(elapsed):
             lista_vremena.clear()
             br_otv = 0
             Otv_Karte.clear()
-            
+
             player_turn = False
-            
+
     #Ako su dvije otvorene karte par: score +1, vrijednost u base vise nije True/False nego 'FIX' tako da
     #se vise te dvije karte ne mogu zatvarat i otvarat nego ostaju otvorene do kraja igre
 
@@ -172,14 +174,14 @@ def isPair(elapsed):
 
 def comTurn():
     global Otv_Karte
-    
-    
 
-    
+
+
+
     global pos1
     global pos2
 
-    
+
     valjano = False
     while valjano == False:
         pos1 = random.choice(positions)     #sa varijablom valjano pratimo jel odabrana kartica slobodna
@@ -191,7 +193,7 @@ def comTurn():
             for n in range(20):
                 if base[positions[n]][0] == base[pos1][0] and pos1 != positions[n]:
                     pos2 = positions[n]
-        
+
         else:
             valjano = False
             while valjano == False:
@@ -206,12 +208,12 @@ def comTurn():
             if base[pos2][1] == False and pos2 != pos1:
                 valjano = True
 
-    
-    
+
+
     Otv_Karte.append(pos1)
     Otv_Karte.append(pos2)
     #print(Otv_Karte)
-    
+
 
 def End(score, time):
     start = dt.datetime.now()
@@ -221,9 +223,9 @@ def End(score, time):
         stop = dt.datetime.now() - start
         stop = stop.seconds
         screen.fill((255,255,255))
-        kraj = font.render('Završena igra! :)', True, (0,0,0))
+        kraj = font.render('Kraj! :)', True, (0,0,0))
         vrijeme = font.render('Vrijeme: '+str(time)+' sekundi', True, (0,0,0))
-        msg = font.render('Sačekaj '+str(5-stop)+' sekundi', True, (0,0,0))
+        msg = font.render('Za '+str(5-stop)+' sekundi spremi rezultat', True, (0,0,0))
         skor = font.render('Rezultat '+score, True, (0,0,0))
         screen.blit(kraj, (200,300))
         screen.blit(skor, (200,400))
@@ -232,26 +234,26 @@ def End(score, time):
 
 
         pygame.display.update()
-    
+
     pygame.quit()
     submit.VScom(kor1, time, score)
 
 
 
-    
-            
 
-    
+
+
+
 
 
 lista_vremena = []
-font = pygame.font.Font('freesansbold.ttf', 32)
+font = pygame.font.Font(cwd+'\\font.otf', 50)
 clock = pygame.time.Clock()
 player_turn = True
 vrijeme1 = dt.datetime.now()
 while not kraj:
 
-    screen.fill((255,255,255))
+    screen.blit(background, (0,0))
     vrijeme = dt.datetime.now() - vrijeme1
     rezultat_player = font.render(kor1+': '+str(score_player), True, (0,0,0))
     rezultat_comp = font.render(kor2+': '+str(score_comp), True, (0,0,0))
@@ -271,22 +273,22 @@ while not kraj:
     if player_turn == False:
         if len(Otv_Karte) != 2:
             comTurn()
-        
+
         if len(lista_vremena) != 1:
             lista_vremena.append(dt.datetime.now())
-        
+
         time = dt.datetime.now()
 
         elapsed = time - lista_vremena[0]
         if elapsed.seconds in range (1,2):
             pos1 = Otv_Karte[0]
             base[pos1][1] = True
-            
+
         elif elapsed.seconds in range (2,5):
             pos2 = Otv_Karte[1]
             base[pos2][1] = True
-            
-        
+
+
             if base[Otv_Karte[0]][0] == base[Otv_Karte[1]][0]:
                 score_comp+=1
                 for n in range(20):
@@ -305,14 +307,14 @@ while not kraj:
                             base[positions[n]][1] = False
                     lista_vremena.clear()
                     Otv_Karte.clear()
-            
+
                     player_turn = True
 
-                    
+
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             kraj = True
-        
+
         if player_turn:
             if e.type == pygame.MOUSEBUTTONUP:
                 x, y = e.pos
@@ -330,19 +332,19 @@ while not kraj:
                         else:
                             pass
 
-    
-        
-
-    
 
 
-        
 
 
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
 
 
 
@@ -350,19 +352,17 @@ while not kraj:
                #jesu otvorene dvije karte?
         if len(lista_vremena) != 1:
             lista_vremena.append(dt.datetime.now())
-    
+
         c = dt.datetime.now() - lista_vremena[0]
-        
-            
+
+
         isPair(c)
-    
+
 
     if score_comp + score_player == 10:
         End(str(score_player)+' : '+str(score_comp), vrijeme)
-    
+
 
 
     clock.tick(60)
     pygame.display.update()
-
-

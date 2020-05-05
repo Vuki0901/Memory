@@ -40,6 +40,8 @@ send.bind('<ButtonRelease>', get_kor)
 
 root.mainloop()
 
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (100,35)
+
 pygame.init()
 screen = pygame.display.set_mode((900,780))
 pygame.display.set_caption('MultiPlayer')
@@ -64,7 +66,7 @@ karta_ps_10 = pygame.image.load(cwd+'\slike\kart_10.jpg'); karteList.append(kart
 #zadnja strana karata
 karta_zs = pygame.image.load(cwd+'\slike\zadnja_strana.png')
 
-
+background = pygame.image.load(cwd+'\\slike\\template.png')
 
 positions = ['a1', 'a2', 'a3', 'a4', 'a5',      #kao na sahovskoj ploci
              'b1', 'b2', 'b3', 'b4', 'b5',
@@ -78,7 +80,7 @@ random.shuffle(karteAll)
 
 
 #pozicija kartice : [Kartica, Otvorena?, koordinate topleft coska]
-base = {positions[i] : [karteAll[i], False, (0,0)] for i in range(20)}  
+base = {positions[i] : [karteAll[i], False, (0,0)] for i in range(20)}
 
 #crtanje jedne kartice na zadanim koordinatama(x,y)
 def drawOne(n, x, y):
@@ -89,10 +91,10 @@ def drawOne(n, x, y):
         screen.blit(base[positions[n]][0], (x, y))
     else:
         screen.blit(karta_zs, (x, y))
-    
+
     base[positions[n]][2] = (x,y)   #Postavljanje koordinata topleft coska
 
-#provjera kartice jel otvorena il nije; vraća vrijednost True/False 
+#provjera kartice jel otvorena il nije; vraća vrijednost True/False
 def isPressed(n, mouse_x, mouse_y):
     global base
     x = base[positions[n]][2][0]
@@ -119,7 +121,7 @@ def isPair(elapsed):
     global score_second
     global lista_vremena
     global turn
-    
+
     n = 0
     for red in range(4):
         y = 100 + red*150
@@ -133,7 +135,7 @@ def isPair(elapsed):
 
     if Otv_Karte[0] == Otv_Karte[1]:
         turn+=1
-        if turn%2==1:       
+        if turn%2==1:
             score_first+=1
         else:
             score_second+=1
@@ -153,15 +155,15 @@ def isPair(elapsed):
             br_otv = 0
             Otv_Karte.clear()
             turn+=1
-        
-            
+
+
     #Ako su dvije otvorene karte par: score +1, vrijednost u base vise nije True/False nego 'FIX' tako da
     #se vise te dvije karte ne mogu zatvarat i otvarat nego ostaju otvorene do kraja igre
 
     #Ako nisu par samo se zatvaraju i u oba slučaja se broj otvorenih karata i lista otvorenih karata resetiraju
 
 
-font = pygame.font.Font('freesansbold.ttf', 32)
+font = pygame.font.Font(cwd+'\\font.otf', 50)
 clock = pygame.time.Clock()
 lista_vremena = []
 
@@ -173,9 +175,9 @@ def End(score, time):
         stop = dt.datetime.now() - start
         stop = stop.seconds
         screen.fill((255,255,255))
-        kraj = font.render('Završena igra! :)', True, (0,0,0))
+        kraj = font.render('Kraj! :)', True, (0,0,0))
         vrijeme = font.render('Vrijeme: '+str(time)+' sekundi', True, (0,0,0))
-        msg = font.render('Sačekaj '+str(5-stop)+' sekundi', True, (0,0,0))
+        msg = font.render('Za '+str(5-stop)+' sekundi spremi rezultat', True, (0,0,0))
         skor = font.render('Rezultat '+score, True, (0,0,0))
         screen.blit(kraj, (200,300))
         screen.blit(skor, (200,400))
@@ -184,16 +186,16 @@ def End(score, time):
 
 
         pygame.display.update()
-    
+
     pygame.quit()
     submit.MultiPlayer(kor1, kor2, score, time)
 
 
 start = dt.datetime.now()
 while rad:
-    screen.fill((255,255,255))  #bijela pozadina
+    screen.blit(background, (0,0))
     vrijeme = dt.datetime.now() - start     #proteklo vrijeme
-    rez_first = font.render(kor1+': '+str(score_first), True, (0,0,0))  
+    rez_first = font.render(kor1+': '+str(score_first), True, (0,0,0))
     rez_second = font.render(kor2+': '+str(score_second), True, (0,0,0))
     timer = font.render('Vrijeme: '+str(vrijeme)[:-4], True, (0,0,0))
     if turn%2==0:
@@ -225,11 +227,11 @@ while rad:
                #jesu otvorene dvije karte?
         if len(lista_vremena) != 1:
             lista_vremena.append(dt.datetime.now())
-    
+
         c = dt.datetime.now() - lista_vremena[0]
-        
-            
-        isPair(c) 
+
+
+        isPair(c)
 
 
     for e in pygame.event.get():
@@ -248,12 +250,12 @@ while rad:
                         else:
                             pass
                     else:
-                        pass    
-                        
-    
-            
-        
-    
+                        pass
+
+
+
+
+
 
     clock.tick(60)  #60 fps
     pygame.display.update()

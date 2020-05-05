@@ -34,7 +34,7 @@ class RezultatiFetch:
         c.execute("SELECT * FROM rezultati WHERE type = ?", ("MultiPlayer",))
 
         return c.fetchall()
-    
+
     def listaRezultataVSCOM():
         conn = sqlite3.connect('rezultati.db'); c = conn.cursor()
 
@@ -51,7 +51,7 @@ class Tables:
                     width=600,
                     data=data,
                     headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
-        
+
         return table
 
     def TableSinglePlayer(subRoot):
@@ -61,7 +61,7 @@ class Tables:
                     width=600,
                     data=data,
                     headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
-        
+
         return table
 
     def TableMultiPlayer(subRoot):
@@ -71,7 +71,7 @@ class Tables:
                     width=600,
                     data=data,
                     headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
-        
+
         return table
 
     def TableVsCom(subRoot):
@@ -81,7 +81,7 @@ class Tables:
                     width=600,
                     data=data,
                     headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
-        
+
         return table
 
 
@@ -143,7 +143,7 @@ class Menu:
         izlaz.place(x=510, y=10)
         izlaz.bind('<ButtonRelease>', lambda a: subRoot.destroy())
 
-        memory = '''U 20 nasumično raspoređenih kartica nalazi\nse deset parova koje morate pronaći, u svakom 
+        memory = '''U 20 nasumično raspoređenih kartica nalazi\nse deset parova koje morate pronaći, u svakom
 potezu otvarate po dvije kartice i ako\none nisu iste okreću se nazad te je vaš\ncilj upamtiti na kojem su mjestu te kartice bile;
 kada pronađete jedan par - kartice\nostaju okrenute te vam se pribraja jedan bod\n\n\n'''
         titles = "Singleplayer\n\n\n\nMultiplayer\n\n\n\nVs com\n\n\n\n"
@@ -195,10 +195,10 @@ kada pronađete jedan par - kartice\nostaju okrenute te vam se pribraja jedan bo
         but2.bind('<ButtonRelease>', lambda a: subMenus.RezultatiTableShow(subRoot, 2))
         but3.bind('<ButtonRelease>', lambda a: subMenus.RezultatiTableShow(subRoot, 3))
         but4.bind('<ButtonRelease>', lambda a: subMenus.RezultatiTableShow(subRoot, 4))
-        
+
         subRoot.mainloop()
-        
-    
+
+
     def igra(root):
         root.destroy()
         subRoot = tk.Tk()
@@ -238,7 +238,7 @@ kada pronađete jedan par - kartice\nostaju okrenute te vam se pribraja jedan bo
 
 def start():
 
-    
+
 
 
     root=tk.Tk()
@@ -275,7 +275,7 @@ def start():
     but3.bind('<ButtonRelease>', lambda a: Menu.opis_igre(root))
     but4.bind('<ButtonRelease>', lambda a: sys.exit())
     root.mainloop()
-    
+
 
 ###################################
 ###################################
