@@ -10,17 +10,10 @@ import os
 
 kraj = False
 
-imena = [
-    'Šime',
-    'Joža',
-    'Štef',
-    'Dragec',
-    'Mirko'
 
-]
 
 kor1=''
-kor2 = random.choice(imena)
+kor2 = 'Com'
 
 root = Tk()
 root.title('Unos korisničkih imena')

@@ -43,14 +43,14 @@ class RezultatiFetch:
         return c.fetchall()
 
 #Kreiranje Sheet objekta sa podacima iz prethodne klase
+headers = ['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta']
 class Tables:
-    headers = ['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta']
     def TableAll(subRoot):
         data = RezultatiFetch.listaRezultataAll()
         table = Sheet(subRoot, height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    headers=headers,
                     show_x_scrollbar = False)
 
         return table
@@ -61,7 +61,7 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    headers=headers,
                     show_x_scrollbar = False)
 
         return table
@@ -72,7 +72,7 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    headers=headers,
                     show_x_scrollbar = False)
 
         return table
@@ -83,7 +83,7 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    headers=headers,
                     show_x_scrollbar = False)
 
         return table
@@ -119,7 +119,7 @@ class subMenus:
             t = Tables.TableMultiPlayer(subRoot)
         else:
             t = Tables.TableVsCom(subRoot)
-        t.column_width(column=3, width=70)
+        t.column_width(column=3, width=70)  #suženje stupca kako bi tablica stala na ekran
         t.place(x=0, y=150)
 
         subRoot.mainloop()
@@ -297,5 +297,5 @@ else:
 
 while True:
     start() #root.protocol("WM_DELETE_WINDOW", lambda:sys.exit())
-            #u funkciji start() - line 247
+            #u funkciji start() - line 252
             #omogućuje izlaz iz petlje
