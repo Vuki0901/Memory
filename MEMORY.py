@@ -50,7 +50,8 @@ class Tables:
         table = Sheet(subRoot, height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
+                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    show_x_scrollbar = False)
 
         return table
 
@@ -60,7 +61,8 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
+                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    show_x_scrollbar = False)
 
         return table
 
@@ -70,7 +72,8 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
+                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    show_x_scrollbar = False)
 
         return table
 
@@ -80,7 +83,8 @@ class Tables:
                     height=600,
                     width=600,
                     data=data,
-                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'])
+                    headers=['Korisničko ime', 'Rezultat', 'Datum', 'Vrijeme', 'Vrsta'],
+                    show_x_scrollbar = False)
 
         return table
 
